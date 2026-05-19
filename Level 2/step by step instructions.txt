@@ -1,0 +1,204 @@
+LEVEL 2 — Data Selection & Filtering in Pandas
+
+This is the level where you start doing actual data analysis.
+
+Until now:
+
+Level 1 → Reading Data & Understanding DataFrames
+
+STEP 1 — Import Pandas
+
+import pandas as pd
+
+
+STEP 2 — Create Sample Dataset
+
+Use this dataset throughout the level.
+
+data = {
+    "name": ["Amit", "Rahul", "Priya", "Sneha", "John"],
+    "sales": [1200, 800, 1500, 700, 2000],
+    "region": ["North", "South", "North", "East", "West"]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+Output
+     name  sales region
+0    Amit   1200  North
+1   Rahul    800  South
+2   Priya   1500  North
+3  Sneha    700   East
+4   John    2000   West
+
+PART 1 — Selecting Columns
+
+Sometimes you only need one column from the dataset.
+
+Select Single Column
+df["sales"]
+Output
+0    1200
+1     800
+2    1500
+3     700
+4    2000
+Name: sales, dtype: int64
+Store Column in Variable
+sales_data = df["sales"]
+
+print(sales_data)
+Select Another Column
+df["name"]
+
+PART 2 — Selecting Multiple Columns
+
+You can select more than one column together.
+
+Syntax
+df[["name", "sales"]]
+Output
+    name  sales
+0   Amit   1200
+1  Rahul    800
+2  Priya   1500
+3  Sneha    700
+4   John   2000
+Select 3 Columns
+df[["name", "sales", "region"]]
+IMPORTANT NOTE
+Why Double Brackets?
+Single Bracket
+df["sales"]
+
+Returns a Series
+
+Double Bracket
+df[["sales"]]
+
+Returns a DataFrame
+
+PART 3 — Filtering Data
+
+Filtering means showing only rows that match a condition.
+
+This is one of the MOST important skills in data analysis.
+
+Filter Sales Greater Than 1000
+df[df["sales"] > 1000]
+Output
+    name  sales region
+0   Amit   1200  North
+2  Priya   1500  North
+4   John   2000   West
+Understanding the Syntax
+Inside Condition
+df["sales"] > 1000
+
+This creates True/False values.
+
+Example
+0     True
+1    False
+2     True
+3    False
+4     True
+
+Then pandas keeps only True rows.
+
+PART 4 — Filtering Using Conditions
+Filter Region = North
+df[df["region"] == "North"]
+Output
+    name  sales region
+0   Amit   1200  North
+2  Priya   1500  North
+Equality Operator
+Double Equal Sign
+==
+
+Means:
+"Check if equal to"
+
+Common Comparison Operators
+Operator	Meaning
+>	Greater than
+<	Less than
+>=	Greater than equal to
+<=	Less than equal to
+==	Equal to
+!=	Not equal to
+
+PART 5 — Multiple Conditions
+
+Sales Greater Than 1000 AND Region North
+df[(df["sales"] > 1000) & (df["region"] == "North")]
+Output
+    name  sales region
+0   Amit   1200  North
+2  Priya   1500  North
+Important Rules
+Use & for AND
+(condition1) & (condition2)
+Use | for OR
+(condition1) | (condition2)
+Always Use Parentheses
+
+Correct:
+
+(df["sales"] > 1000)
+
+Wrong:
+
+df["sales"] > 1000
+
+inside multiple conditions.
+
+Example — OR Condition
+df[(df["region"] == "North") | (df["region"] == "West")]
+
+PART 6 — Sorting Data
+
+Sorting helps arrange data in order.
+
+Sort by Sales (Ascending)
+df.sort_values("sales")
+
+Output
+
+    name  sales region
+3  Sneha    700   East
+1  Rahul    800  South
+0   Amit   1200  North
+2  Priya   1500  North
+4   John   2000   West
+
+Sort by Sales (Descending)
+
+df.sort_values("sales", ascending=False)
+
+Output
+
+    name  sales region
+4   John   2000   West
+2  Priya   1500  North
+0   Amit   1200  North
+1  Rahul    800  South
+3  Sneha    700   East
+Sort by Multiple Columns
+df.sort_values(["region", "sales"])
+
+
+
+LEVEL 3 SUMMARY
+
+You learned:
+
+✅ Selecting columns
+✅ Selecting multiple columns
+✅ Filtering rows
+✅ Applying conditions
+✅ Multiple conditions using AND/OR
+✅ Sorting data
+✅ Real analysis basics
