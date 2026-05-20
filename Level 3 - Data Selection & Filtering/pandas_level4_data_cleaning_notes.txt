@@ -1,0 +1,359 @@
+LEVEL 3 — DATA CLEANING IN PANDAS (VERY IMPORTANT)
+
+INTRODUCTION
+-------------------------
+In real-world data analysis projects, data is rarely perfect.
+
+You will often find:
+- Missing values
+- Wrong column names
+- Incorrect data types
+- Extra spaces
+- Mixed formatting
+
+This process of fixing and preparing data is called:
+DATA CLEANING
+
+Most real data analyst jobs involve a lot of data cleaning before analysis.
+
+------------------------------------------------------------
+1. IMPORT PANDAS
+------------------------------------------------------------
+
+import pandas as pd
+
+------------------------------------------------------------
+2. CREATE SAMPLE DIRTY DATASET
+------------------------------------------------------------
+
+data = {
+    "name": ["Amit", "Rahul", "Sneha", "Amit", None],
+    "sales": [500, 700, None, 500, 900],
+    "city": ["Delhi", "Mumbai", "Delhi", "Delhi", None]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+------------------------------------------------------------
+3. UNDERSTANDING THE PROBLEMS
+------------------------------------------------------------
+
+Problem 1:
+Missing Values
+Some cells contain None or NaN.
+
+Problem 2:
+Wrong Data Types
+Sales should ideally be integers.
+
+------------------------------------------------------------
+PART 1 — MISSING VALUES
+------------------------------------------------------------
+
+What are Missing Values?
+-------------------------
+Missing values are empty cells in a dataset.
+
+Pandas usually displays them as:
+- NaN
+- None
+
+------------------------------------------------------------
+CHECK MISSING VALUES
+------------------------------------------------------------
+
+df.isnull()
+
+This returns:
+- True  → Missing value
+- False → Existing value
+
+Example:
+
+print(df.isnull())
+
+------------------------------------------------------------
+COUNT MISSING VALUES
+------------------------------------------------------------
+
+print(df.isnull().sum())
+
+Explanation:
+- isnull() finds missing values
+- sum() counts total True values
+
+------------------------------------------------------------
+REMOVE MISSING VALUES
+------------------------------------------------------------
+
+df.dropna()
+
+Example:
+
+clean_df = df.dropna()
+
+print(clean_df)
+
+Explanation:
+Rows containing missing values are removed.
+
+------------------------------------------------------------
+FILL MISSING VALUES
+------------------------------------------------------------
+
+Instead of removing rows, we can fill empty cells.
+
+Example 1 — Fill Numeric Values
+
+df["sales"] = df["sales"].fillna(0)
+
+Example 2 — Fill Text Values
+
+df["city"] = df["city"].fillna("Unknown")
+
+------------------------------------------------------------
+COMMON fillna() METHODS
+------------------------------------------------------------
+
+fillna(0)
+→ Replace missing numbers
+
+fillna("Unknown")
+→ Replace missing text
+
+fillna(df.mean())
+→ Replace with average value
+
+fillna(method="ffill")
+→ Fill using previous row value
+
+------------------------------------------------------------
+PART 2 — RENAME COLUMNS
+------------------------------------------------------------
+
+Why Rename Columns?
+-------------------------
+Real datasets often have:
+- Bad column names
+- Spaces
+- Short names
+- Inconsistent formatting
+
+Renaming columns improves:
+- Readability
+- Coding
+- Analysis
+
+------------------------------------------------------------
+RENAME SINGLE COLUMN
+------------------------------------------------------------
+
+df.rename()
+
+Example:
+
+df = df.rename(columns={"sales": "total_sales"})
+
+print(df)
+
+Explanation:
+Old column:
+sales
+
+New column:
+total_sales
+
+------------------------------------------------------------
+RENAME MULTIPLE COLUMNS
+------------------------------------------------------------
+
+df = df.rename(columns={
+    "name": "customer_name",
+    "city": "customer_city"
+})
+
+print(df)
+
+------------------------------------------------------------
+BEST PRACTICES FOR COLUMN NAMES
+------------------------------------------------------------
+
+Use:
+- lowercase
+- underscore (_)
+- meaningful names
+
+Good Examples:
+- total_sales
+- customer_name
+- order_date
+
+Avoid:
+- Total Sales
+- TOTALSALES
+- x1
+
+------------------------------------------------------------
+PART 3 — CHANGE DATA TYPES
+------------------------------------------------------------
+
+Why Data Types Matter?
+-------------------------
+Sometimes numbers are stored as text.
+
+Example:
+"500"
+
+instead of:
+500
+
+This creates problems in:
+- Calculations
+- Sorting
+- Charts
+- Analysis
+
+------------------------------------------------------------
+CHECK DATA TYPES
+------------------------------------------------------------
+
+print(df.dtypes)
+
+Common Pandas Data Types:
+- int64      → Integer
+- float64    → Decimal
+- object     → Text/String
+- bool       → True/False
+- datetime64 → Date & Time
+
+------------------------------------------------------------
+CHANGE DATA TYPE
+------------------------------------------------------------
+
+astype()
+
+Example:
+
+df["total_sales"] = df["total_sales"].astype(int)
+
+print(df.dtypes)
+
+Explanation:
+500.0 becomes 500
+
+------------------------------------------------------------
+SAFE DATA TYPE CONVERSION
+------------------------------------------------------------
+
+df["total_sales"] = pd.to_numeric(
+    df["total_sales"],
+    errors="coerce"
+)
+
+Explanation:
+Invalid values become NaN instead of causing errors.
+
+------------------------------------------------------------
+FULL DATA CLEANING EXAMPLE
+------------------------------------------------------------
+
+import pandas as pd
+
+data = {
+    "name": ["Amit", "Rahul", "Sneha", "Amit", None],
+    "sales": [500, 700, None, 500, 900],
+    "city": ["Delhi", "Mumbai", "Delhi", "Delhi", None]
+}
+
+df = pd.DataFrame(data)
+
+# Check missing values
+print(df.isnull().sum())
+
+# Fill missing sales
+df["sales"] = df["sales"].fillna(0)
+
+# Fill missing city
+df["city"] = df["city"].fillna("Unknown")
+
+# Rename column
+df = df.rename(columns={"sales": "total_sales"})
+
+# Change data type
+df["total_sales"] = df["total_sales"].astype(int)
+
+print(df)
+
+print(df.dtypes)
+
+------------------------------------------------------------
+REAL-WORLD DATA CLEANING WORKFLOW
+------------------------------------------------------------
+
+Step 1 — Load Data
+pd.read_csv()
+
+Step 2 — Inspect Data
+df.head()
+df.info()
+df.describe()
+
+Step 3 — Handle Missing Values
+isnull()
+fillna()
+dropna()
+
+Step 4 — Rename Columns
+rename()
+
+Step 5 — Fix Data Types
+astype()
+
+Step 6 — Begin Analysis
+groupby()
+pivot_table()
+charts
+
+------------------------------------------------------------
+PRACTICE EXERCISES
+------------------------------------------------------------
+
+Exercise 1:
+Create a DataFrame with:
+- Missing names
+- Missing salaries
+
+Then:
+- Count missing values
+- Fill salary with 0
+
+------------------------------------------------------------
+
+Exercise 2:
+Rename:
+salary → employee_salary
+
+------------------------------------------------------------
+
+Exercise 3:
+Convert:
+"5000"
+
+to integer using:
+astype(int)
+
+------------------------------------------------------------
+WHAT YOU LEARNED
+------------------------------------------------------------
+
+You learned how to:
+- Detect missing values
+- Remove missing data
+- Fill missing data
+- Rename columns
+- Change data types
+- Clean datasets professionally
+
+These are some of the most important Pandas skills used in real jobs.
