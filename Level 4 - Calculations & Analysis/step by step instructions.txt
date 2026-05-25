@@ -1,0 +1,371 @@
+PANDAS LEVEL 4 — CALCULATIONS & ANALYSIS
+STEP-BY-STEP PRACTICAL GUIDE
+
+====================================================
+STEP 1 — INSTALL PYTHON
+=======================
+
+Download Python from:
+
+https://www.python.org/downloads/
+
+IMPORTANT:
+While installing Python, CHECK this option:
+
+[✓] Add Python to PATH
+
+After installation, verify:
+
+Open Command Prompt and type:
+
+python --version
+
+You should see something like:
+
+Python 3.12.0
+
+====================================================
+STEP 2 — INSTALL JUPYTER NOTEBOOK
+=================================
+
+Open Command Prompt and run:
+
+pip install notebook
+
+After installation:
+
+jupyter notebook
+
+A browser window will open automatically.
+
+====================================================
+STEP 3 — INSTALL PANDAS
+=======================
+
+Open Command Prompt and run:
+
+pip install pandas
+
+Verify installation:
+
+pip show pandas
+
+====================================================
+STEP 4 — CREATE PROJECT FOLDER
+==============================
+
+Create a folder:
+
+Pandas_Level_5
+
+Inside it create:
+
+1. level5_analysis.ipynb
+2. instructions.txt
+
+====================================================
+STEP 5 — IMPORT PANDAS
+======================
+
+Open Jupyter Notebook.
+
+Create first cell:
+
+import pandas as pd
+
+====================================================
+STEP 6 — CREATE SAMPLE DATASET
+==============================
+
+Paste this code:
+
+import pandas as pd
+
+data = {
+"order_id": [1, 2, 3, 4],
+"region": ["North", "South", "North", "West"],
+"sales": [100, 200, 150, 300]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+OUTPUT:
+
+order_id region  sales
+0         1  North    100
+1         2  South    200
+2         3  North    150
+3         4   West    300
+
+====================================================
+STEP 7 — CALCULATE TOTAL SALES USING SUM()
+==========================================
+
+Code:
+
+total_sales = df["sales"].sum()
+
+print(total_sales)
+
+OUTPUT:
+
+750
+
+Explanation:
+100 + 200 + 150 + 300 = 750
+
+====================================================
+STEP 8 — FIND AVERAGE SALES USING MEAN()
+========================================
+
+Code:
+
+average_sales = df["sales"].mean()
+
+print(average_sales)
+
+OUTPUT:
+
+187.5
+
+Explanation:
+
+(100 + 200 + 150 + 300) / 4
+
+====================================================
+STEP 9 — FIND MAXIMUM VALUE USING MAX()
+=======================================
+
+Code:
+
+highest_sale = df["sales"].max()
+
+print(highest_sale)
+
+OUTPUT:
+
+300
+
+Purpose:
+Find highest sales value.
+
+====================================================
+STEP 10 — FIND MINIMUM VALUE USING MIN()
+========================================
+
+Code:
+
+lowest_sale = df["sales"].min()
+
+print(lowest_sale)
+
+OUTPUT:
+
+100
+
+====================================================
+STEP 11 — COUNT TOTAL RECORDS
+=============================
+
+Code:
+
+df["sales"].count()
+
+OUTPUT:
+
+4
+
+====================================================
+STEP 12 — PERFORM MULTIPLE CALCULATIONS
+=======================================
+
+Code:
+
+print("Total:", df["sales"].sum())
+print("Average:", df["sales"].mean())
+print("Maximum:", df["sales"].max())
+print("Minimum:", df["sales"].min())
+
+OUTPUT:
+
+Total: 750
+Average: 187.5
+Maximum: 300
+Minimum: 100
+
+====================================================
+STEP 13 — LEARN GROUPBY() (MOST IMPORTANT)
+==========================================
+
+Code:
+
+region_sales = df.groupby("region")["sales"].sum()
+
+print(region_sales)
+
+OUTPUT:
+
+region
+North    250
+South    200
+West     300
+
+Explanation:
+
+North:
+100 + 150 = 250
+
+South:
+200
+
+West:
+300
+
+====================================================
+STEP 14 — GROUPBY WITH MEAN()
+=============================
+
+Code:
+
+df.groupby("region")["sales"].mean()
+
+OUTPUT:
+
+region
+North    125
+South    200
+West     300
+
+====================================================
+STEP 15 — GROUPBY WITH MULTIPLE CALCULATIONS
+============================================
+
+Code:
+
+df.groupby("region")["sales"].agg(["sum", "mean", "max"])
+
+OUTPUT:
+
+```
+    sum   mean   max
+```
+
+region
+North   250   125   150
+South   200   200   200
+West    300   300   300
+
+====================================================
+STEP 16 — QUICK ANALYSIS USING DESCRIBE()
+=========================================
+
+Code:
+
+df["sales"].describe()
+
+OUTPUT:
+
+count      4.000000
+mean     187.500000
+std       85.391256
+min      100.000000
+25%      137.500000
+50%      175.000000
+75%      225.000000
+max      300.000000
+
+====================================================
+STEP 17 — PRACTICE TASKS
+========================
+
+TASK 1:
+Find total sales.
+
+TASK 2:
+Find average sales.
+
+TASK 3:
+Find highest sales.
+
+TASK 4:
+Find total sales by region.
+
+TASK 5:
+Find average sales by region.
+
+====================================================
+STEP 18 — REAL-WORLD DATA ANALYST USAGE
+=======================================
+
+These functions are used for:
+
+• Sales reporting
+• Financial analysis
+• Inventory tracking
+• Business dashboards
+• HR analytics
+• Ecommerce reporting
+• Customer analysis
+• Revenue forecasting
+
+====================================================
+STEP 19 — IMPORTANT FUNCTIONS SUMMARY
+=====================================
+
+sum()       → Total values
+mean()      → Average values
+max()       → Highest value
+min()       → Lowest value
+count()     → Number of records
+groupby()   → Group data together
+agg()       → Multiple calculations
+describe()  → Complete summary
+
+====================================================
+STEP 20 — NEXT LEARNING LEVEL
+=============================
+
+Next topics:
+
+• Filtering rows
+• Boolean conditions
+• Sorting data
+• Multiple conditions
+• Real CSV datasets
+• Advanced analysis
+
+Example:
+
+df[df["sales"] > 200]
+
+This is where Pandas becomes extremely powerful.
+
+====================================================
+GITHUB REPOSITORY STRUCTURE
+===========================
+
+Pandas_Level_5/
+│
+├── instructions.txt
+├── level5_analysis.ipynb
+└── README.md
+
+====================================================
+SUGGESTED GITHUB README TITLE
+=============================
+
+Pandas Level 4 — Calculations & Analysis
+
+Topics Covered:
+• sum()
+• mean()
+• max()
+• min()
+• count()
+• groupby()
+• agg()
+• describe()
+
+Practical beginner-friendly guide with examples and outputs.
