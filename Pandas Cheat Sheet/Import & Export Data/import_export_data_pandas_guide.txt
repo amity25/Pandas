@@ -1,0 +1,450 @@
+IMPORT EXPORT DATA IN PANDAS
+=================================
+
+This guide explains the Import Export Data section of Pandas with proper beginner-friendly examples and setup instructions.
+
+==================================================
+1. IMPORTING DATA
+==================================================
+
+--------------------------------------------------
+pd.read_csv() — Read CSV Files
+--------------------------------------------------
+
+Used to read CSV (Comma Separated Values) files.
+
+Example:
+
+import pandas as pd
+
+df = pd.read_csv("employees.csv")
+
+print(df)
+
+--------------------------------------------------
+Example CSV File (employees.csv)
+--------------------------------------------------
+
+Name,Age,Department
+Amit,28,IT
+Sara,31,HR
+John,35,Finance
+
+--------------------------------------------------
+Useful Parameters
+--------------------------------------------------
+
+Read first 2 rows only:
+
+df = pd.read_csv("employees.csv", nrows=2)
+
+Read selected columns only:
+
+df = pd.read_csv(
+    "employees.csv",
+    usecols=["Name", "Department"]
+)
+
+==================================================
+pd.read_table() — Read Delimited Text Files
+==================================================
+
+Used to read tab-separated or custom-separated text files.
+
+Example text file (data.txt):
+
+Name|Age|City
+Amit|28|Delhi
+Sara|31|Mumbai
+
+Example code:
+
+import pandas as pd
+
+df = pd.read_table("data.txt", sep="|")
+
+print(df)
+
+==================================================
+pd.read_excel() — Read Excel Files
+==================================================
+
+Used to read Excel files.
+
+Before using read_excel(), install:
+
+!pip install openpyxl
+
+Example:
+
+import pandas as pd
+
+df = pd.read_excel("sales.xlsx")
+
+print(df)
+
+Read a specific sheet:
+
+df = pd.read_excel(
+    "sales.xlsx",
+    sheet_name="January"
+)
+
+==================================================
+pd.read_sql() — Read Data from SQL Database
+==================================================
+
+Used to read SQL tables and databases into Pandas.
+
+--------------------------------------------------
+STEP 1 — INSTALL REQUIRED SOFTWARE
+--------------------------------------------------
+
+Install:
+1. Python
+2. Jupyter Notebook
+3. MySQL Server
+4. MySQL Workbench
+
+--------------------------------------------------
+STEP 2 — INSTALL REQUIRED PYTHON LIBRARIES
+--------------------------------------------------
+
+Run these commands in Jupyter Notebook:
+
+!pip install pandas
+
+!pip install sqlalchemy
+
+!pip install mysql-connector-python
+
+--------------------------------------------------
+WHAT THESE LIBRARIES DO
+--------------------------------------------------
+
+pandas
+- Data analysis and DataFrames
+
+sqlalchemy
+- Creates database connection engine
+
+mysql-connector-python
+- Connects Python with MySQL
+
+--------------------------------------------------
+STEP 3 — CREATE DATABASE IN MYSQL WORKBENCH
+--------------------------------------------------
+
+Run:
+
+CREATE DATABASE company;
+
+--------------------------------------------------
+STEP 4 — USE DATABASE
+--------------------------------------------------
+
+Run:
+
+USE company;
+
+--------------------------------------------------
+STEP 5 — CREATE TABLE
+--------------------------------------------------
+
+Run:
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    department VARCHAR(50)
+);
+
+--------------------------------------------------
+STEP 6 — INSERT SAMPLE DATA
+--------------------------------------------------
+
+Run:
+
+INSERT INTO employees VALUES
+(1, 'Amit', 28, 'IT'),
+(2, 'Sara', 31, 'HR'),
+(3, 'John', 35, 'Finance');
+
+--------------------------------------------------
+STEP 7 — VERIFY DATA
+--------------------------------------------------
+
+Run:
+
+SELECT * FROM employees;
+
+--------------------------------------------------
+STEP 8 — CONNECT MYSQL WITH PANDAS
+--------------------------------------------------
+
+Example:
+
+import pandas as pd
+from sqlalchemy import create_engine
+
+engine = create_engine(
+    "mysql+mysqlconnector://root:YOUR_PASSWORD@localhost/company"
+)
+
+query = "SELECT * FROM employees"
+
+df = pd.read_sql(query, engine)
+
+print(df)
+
+--------------------------------------------------
+IMPORTANT NOTE ABOUT PASSWORDS
+--------------------------------------------------
+
+If your password contains special characters like:
+
+@
+#
+!
+$
+
+they must be URL encoded.
+
+Example:
+
+Important@123
+
+becomes:
+
+Important%40123
+
+Final example:
+
+engine = create_engine(
+    "mysql+mysqlconnector://root:Important%40123@localhost/company"
+)
+
+--------------------------------------------------
+COMMON BEGINNER ERRORS
+--------------------------------------------------
+
+1. ModuleNotFoundError
+
+Reason:
+Required package not installed
+
+Solution:
+
+!pip install mysql-connector-python
+
+--------------------------------------------------
+
+2. Access denied for user
+
+Reason:
+Wrong username or password
+
+--------------------------------------------------
+
+3. Unknown database
+
+Reason:
+Database not created
+
+--------------------------------------------------
+
+4. Table doesn't exist
+
+Reason:
+Table not created
+
+--------------------------------------------------
+
+5. Connection refused
+
+Reason:
+MySQL server is not running
+
+==================================================
+pd.read_json() — Read JSON Data
+==================================================
+
+Example JSON file (employees.json):
+
+[
+  {"Name":"Amit","Age":28},
+  {"Name":"Sara","Age":31}
+]
+
+Example code:
+
+import pandas as pd
+
+df = pd.read_json("employees.json")
+
+print(df)
+
+==================================================
+pd.read_html() — Read Tables from Websites
+==================================================
+
+Used to extract tables directly from websites.
+
+Before using read_html(), install:
+
+!pip install lxml html5lib beautifulsoup4
+
+Example:
+
+import pandas as pd
+
+tables = pd.read_html(
+    "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population"
+)
+
+df = tables[0]
+
+print(df.head())
+
+--------------------------------------------------
+IMPORTANT NOTE
+--------------------------------------------------
+
+pd.read_html() only reads the table into memory.
+
+It DOES NOT automatically create a CSV file.
+
+==================================================
+pd.DataFrame() — Create DataFrame from Dictionary
+==================================================
+
+Example:
+
+import pandas as pd
+
+data = {
+    "Name": ["Amit", "Sara", "John"],
+    "Age": [28, 31, 35],
+    "Department": ["IT", "HR", "Finance"]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+==================================================
+2. EXPORTING DATA
+==================================================
+
+--------------------------------------------------
+df.to_csv() — Export to CSV
+--------------------------------------------------
+
+Example:
+
+df.to_csv("output.csv", index=False)
+
+--------------------------------------------------
+WHERE WILL THE CSV FILE BE SAVED?
+--------------------------------------------------
+
+By default:
+The file is saved in the same folder where Jupyter Notebook is running.
+
+Check current folder:
+
+import os
+
+print(os.getcwd())
+
+--------------------------------------------------
+SAVE FILE DIRECTLY TO DESKTOP
+--------------------------------------------------
+
+Example:
+
+df.to_csv(
+    r"C:\Users\YourName\Desktop\output.csv",
+    index=False
+)
+
+Replace:
+YourName with your Windows username
+
+==================================================
+df.to_excel() — Export to Excel
+==================================================
+
+Install dependency:
+
+!pip install openpyxl
+
+Example:
+
+df.to_excel("output.xlsx", index=False)
+
+==================================================
+df.to_sql() — Export to SQL Table
+==================================================
+
+Example:
+
+import sqlite3
+
+conn = sqlite3.connect("company.db")
+
+df.to_sql(
+    "employees",
+    conn,
+    if_exists="replace",
+    index=False
+)
+
+--------------------------------------------------
+Common Options
+--------------------------------------------------
+
+replace
+- Overwrite existing table
+
+append
+- Add new rows
+
+fail
+- Raise error if table already exists
+
+==================================================
+df.to_json() — Export to JSON
+==================================================
+
+Example:
+
+df.to_json(
+    "employees.json",
+    orient="records"
+)
+
+==================================================
+BEGINNER WORKFLOW SUMMARY
+==================================================
+
+1. Install required software
+2. Install required Python libraries
+3. Import data using Pandas
+4. Process data
+5. Export data to CSV, Excel, SQL, or JSON
+
+==================================================
+REAL WORLD USES
+==================================================
+
+These concepts are used in:
+- Data Analysis
+- Reporting
+- Automation
+- ETL Projects
+- Dashboard Projects
+- Data Engineering
+
+End of Guide
