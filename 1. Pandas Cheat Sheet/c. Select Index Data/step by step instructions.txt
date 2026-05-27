@@ -1,0 +1,315 @@
+📘 Pandas Deep Dive Series – Part 3
+Selecting and Indexing Data in Pandas
+
+==================================================
+INTRODUCTION
+==================================================
+
+In this part of the Pandas learning series, we focus on selecting and accessing data from a DataFrame.
+
+Selecting and indexing data is one of the most important skills in data analysis because it helps you:
+- Access specific columns
+- Select rows
+- Extract individual values
+- Filter records
+- Slice datasets
+- Work with indexes
+
+This lesson only covers selecting and indexing operations.
+
+==================================================
+STEP 1 – IMPORT PANDAS
+==================================================
+
+Code:
+
+import pandas as pd
+
+Explanation:
+- Imports the Pandas library
+- pd is the shortcut name used for Pandas
+
+==================================================
+STEP 2 – CREATE A SAMPLE DATAFRAME
+==================================================
+
+Code:
+
+data = {
+    'Name': ['Amit', 'Riya', 'John', 'Sara', 'David'],
+    'Age': [28, 24, 35, 29, 40],
+    'Salary': [50000, 45000, 70000, 52000, 90000],
+    'Department': ['IT', 'HR', 'Finance', 'IT', 'Management']
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+Output:
+
+    Name  Age  Salary Department
+0   Amit   28   50000         IT
+1   Riya   24   45000         HR
+2   John   35   70000    Finance
+3   Sara   29   52000         IT
+4  David   40   90000 Management
+
+Explanation:
+- pd.DataFrame() converts dictionary data into table format
+- Each key becomes a column
+
+==================================================
+STEP 3 – SELECT A SINGLE COLUMN
+==================================================
+
+Syntax:
+
+df['column']
+
+Example:
+
+print(df['Name'])
+
+Output:
+
+0     Amit
+1     Riya
+2     John
+3     Sara
+4    David
+
+Explanation:
+- Selects only one column
+- Returns a Pandas Series
+
+==================================================
+STEP 4 – SELECT MULTIPLE COLUMNS
+==================================================
+
+Syntax:
+
+df[['col1', 'col2']]
+
+Example:
+
+print(df[['Name', 'Salary']])
+
+Output:
+
+    Name  Salary
+0   Amit   50000
+1   Riya   45000
+2   John   70000
+3   Sara   52000
+4  David   90000
+
+Explanation:
+- Double brackets are required
+- Returns another DataFrame
+
+==================================================
+STEP 5 – SELECT ROWS USING iloc
+==================================================
+
+Syntax:
+
+df.iloc[row_position]
+
+Example:
+
+print(df.iloc[0])
+
+Output:
+
+Name          Amit
+Age             28
+Salary        50000
+Department      IT
+
+Explanation:
+- iloc means integer location
+- Uses row positions
+- Counting starts from 0
+
+==================================================
+STEP 6 – SELECT ROWS USING loc
+==================================================
+
+Syntax:
+
+df.loc[row_label]
+
+Example:
+
+print(df.loc[0])
+
+Output:
+
+Name          Amit
+Age             28
+Salary        50000
+Department      IT
+
+Explanation:
+- loc uses labels instead of positions
+- Useful when custom indexes exist
+
+==================================================
+STEP 7 – SELECT A SPECIFIC ELEMENT USING iloc
+==================================================
+
+Syntax:
+
+df.iloc[row_position, column_position]
+
+Example:
+
+print(df.iloc[0, 0])
+
+Output:
+
+Amit
+
+Explanation:
+- First number = row position
+- Second number = column position
+
+==================================================
+STEP 8 – SELECT A SPECIFIC ELEMENT USING loc
+==================================================
+
+Syntax:
+
+df.loc[row_label, 'column']
+
+Example:
+
+print(df.loc[0, 'Salary'])
+
+Output:
+
+50000
+
+Explanation:
+- Uses row labels and column names
+
+==================================================
+STEP 9 – FILTER ROWS USING CONDITIONS
+==================================================
+
+Syntax:
+
+df[df['column'] > value]
+
+Example:
+
+print(df[df['Salary'] > 50000])
+
+Output:
+
+    Name  Age  Salary Department
+2   John   35   70000    Finance
+3   Sara   29   52000         IT
+4  David   40   90000 Management
+
+Explanation:
+- Returns rows matching the condition
+
+==================================================
+STEP 10 – SLICE ROWS AND COLUMNS
+==================================================
+
+Syntax:
+
+df.iloc[row_start:row_end, col_start:col_end]
+
+Example:
+
+print(df.iloc[0:3, 0:2])
+
+Output:
+
+   Name  Age
+0  Amit   28
+1  Riya   24
+2  John   35
+
+Explanation:
+- Selects ranges of rows and columns
+- Ending position is excluded
+
+==================================================
+STEP 11 – SET A COLUMN AS INDEX
+==================================================
+
+Syntax:
+
+df.set_index('column')
+
+Example:
+
+new_df = df.set_index('Name')
+
+print(new_df)
+
+Output:
+
+       Age  Salary Department
+Name
+Amit    28   50000         IT
+Riya    24   45000         HR
+John    35   70000    Finance
+Sara    29   52000         IT
+David   40   90000 Management
+
+Explanation:
+- Converts a column into row labels
+
+==================================================
+DIFFERENCE BETWEEN loc AND iloc
+==================================================
+
+loc  -> Uses labels
+iloc -> Uses positions
+
+Example:
+
+df.loc[0, 'Name']
+df.iloc[0, 0]
+
+==================================================
+PRACTICE EXERCISES
+==================================================
+
+1. Select only the Department column.
+2. Select Name and Age columns together.
+3. Select the third row using iloc.
+4. Select the Salary value of the second row.
+5. Set Department as the index.
+
+==================================================
+KEY TAKEAWAYS
+==================================================
+
+df['col']              -> Select one column
+df[['c1','c2']]        -> Select multiple columns
+iloc                   -> Position-based selection
+loc                    -> Label-based selection
+Filtering              -> Select rows using conditions
+Slicing                -> Select ranges
+set_index()            -> Change DataFrame index
+
+==================================================
+SERIES PROGRESS
+==================================================
+
+Part 1 -> Import and Export Data
+Part 2 -> Inspect Data
+Part 3 -> Selecting and Indexing Data
+Part 4 -> Cleaning Data
+Part 5 -> Sorting and Filtering Data
+Part 6 -> Grouping Data
+Part 7 -> Merge and Join Operations
+Part 8 -> Statistical Operations
+Part 9 -> Data Visualization
