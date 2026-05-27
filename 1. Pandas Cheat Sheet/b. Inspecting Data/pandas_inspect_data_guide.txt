@@ -1,0 +1,186 @@
+# Pandas Inspect Data — Step-by-Step GitHub TXT File Guide
+
+This guide explains how to inspect data in Pandas using beginner-friendly examples.
+
+--------------------------------------------------
+1. IMPORT PANDAS
+--------------------------------------------------
+
+Before working with data, import the Pandas library.
+
+Code:
+
+import pandas as pd
+
+--------------------------------------------------
+2. CREATE A DATAFRAME
+--------------------------------------------------
+
+A DataFrame is a table-like structure in Pandas.
+
+Code:
+
+data = {
+    "Name": ["Amit", "Sara", "John", "Priya", "David"],
+    "Age": [28, 24, 32, 29, 35],
+    "Salary": [50000, 45000, 70000, 52000, 80000],
+    "Department": ["IT", "HR", "Finance", "IT", "Management"]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+--------------------------------------------------
+3. df.head()
+--------------------------------------------------
+
+Purpose:
+Displays the first 5 rows of the DataFrame.
+
+Code:
+
+df.head()
+
+--------------------------------------------------
+4. df.tail()
+--------------------------------------------------
+
+Purpose:
+Displays the last 5 rows.
+
+Code:
+
+df.tail()
+
+--------------------------------------------------
+5. df.sample()
+--------------------------------------------------
+
+Purpose:
+Displays random rows from the dataset.
+
+Code:
+
+df.sample()
+
+--------------------------------------------------
+6. df.shape
+--------------------------------------------------
+
+Purpose:
+Shows the dimensions of the DataFrame.
+
+Code:
+
+df.shape
+
+--------------------------------------------------
+7. IMPORTANT ERROR — df NOT DEFINED
+--------------------------------------------------
+
+If you get this error:
+
+NameError: name 'df' is not defined
+
+It means the DataFrame was not created yet.
+
+Fix:
+Run the DataFrame creation code first.
+
+--------------------------------------------------
+8. df.info()
+--------------------------------------------------
+
+Purpose:
+Displays a summary of the DataFrame.
+
+Code:
+
+df.info()
+
+--------------------------------------------------
+9. df.describe()
+--------------------------------------------------
+
+Purpose:
+Shows statistical summary for numerical columns.
+
+Code:
+
+df.describe()
+
+--------------------------------------------------
+10. df.dtypes
+--------------------------------------------------
+
+Purpose:
+Displays data types of all columns.
+
+Code:
+
+df.dtypes
+
+--------------------------------------------------
+11. df.columns
+--------------------------------------------------
+
+Purpose:
+Displays all column names.
+
+Code:
+
+df.columns
+
+--------------------------------------------------
+12. df.index
+--------------------------------------------------
+
+Purpose:
+Displays index information.
+
+Code:
+
+df.index
+
+--------------------------------------------------
+13. REAL-WORLD INSPECTION WORKFLOW
+--------------------------------------------------
+
+df.head()
+
+df.shape
+
+df.info()
+
+df.describe()
+
+df.columns
+
+df.dtypes
+
+--------------------------------------------------
+14. PRACTICE EXERCISE
+--------------------------------------------------
+
+Create a sample DataFrame and practice all inspection commands.
+
+--------------------------------------------------
+15. SUMMARY TABLE
+--------------------------------------------------
+
+df.head()      -> First rows
+df.tail()      -> Last rows
+df.sample()    -> Random rows
+df.shape       -> Dataset dimensions
+df.info()      -> Summary
+df.describe()  -> Statistics
+df.dtypes      -> Data types
+df.columns     -> Column names
+df.index       -> Index information
+
+--------------------------------------------------
+16. BEST PRACTICE TIP
+--------------------------------------------------
+
+Always inspect your data before cleaning, analysis, visualization, or machine learning.
