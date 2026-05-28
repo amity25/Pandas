@@ -1,0 +1,194 @@
+📘 Pandas Deep Dive Series - Part 4
+
+Cleaning Data in Pandas
+
+Real-world datasets are rarely perfect.
+
+You will often find:
+- Missing values
+- Duplicate records
+- Wrong data types
+- Incorrect column names
+- Unwanted indexes
+- Inconsistent values
+
+Before analysis begins, data must be cleaned properly.
+
+In this part, we will learn only the essential Pandas functions used for cleaning data.
+
+--------------------------------------------------
+IMPORT PANDAS
+--------------------------------------------------
+
+import pandas as pd
+
+--------------------------------------------------
+SAMPLE DATASET
+--------------------------------------------------
+
+data = {
+    'Name': ['Amit', 'Rahul', None, 'Sneha', 'Amit'],
+    'Age': [25, None, 30, 28, 25],
+    'Salary': [50000, 60000, None, 75000, 50000]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+--------------------------------------------------
+1. df.isnull()
+Check Missing Values
+--------------------------------------------------
+
+df.isnull()
+
+Count Missing Values:
+
+df.isnull().sum()
+
+--------------------------------------------------
+2. df.notnull()
+Check Non-Missing Values
+--------------------------------------------------
+
+df.notnull()
+
+--------------------------------------------------
+3. df.dropna()
+Remove Missing Values
+--------------------------------------------------
+
+clean_df = df.dropna()
+
+print(clean_df)
+
+Remove Columns with Missing Values:
+
+df.dropna(axis=1)
+
+--------------------------------------------------
+4. df.fillna()
+Replace Missing Values
+--------------------------------------------------
+
+Fill with Zero:
+
+df.fillna(0)
+
+Fill Specific Column:
+
+df['Age'] = df['Age'].fillna(18)
+
+--------------------------------------------------
+5. df.replace()
+Replace Specific Values
+--------------------------------------------------
+
+Replace a Single Value:
+
+df.replace(25, 'Twenty Five')
+
+Replace Multiple Values:
+
+df.replace({
+    25: 'Young',
+    30: 'Adult'
+})
+
+--------------------------------------------------
+6. df.rename()
+Rename Columns
+--------------------------------------------------
+
+df.rename(columns={'Salary': 'Monthly_Salary'})
+
+Rename Multiple Columns:
+
+df.rename(columns={
+    'Name': 'Employee_Name',
+    'Age': 'Employee_Age'
+})
+
+--------------------------------------------------
+7. df.astype()
+Change Data Types
+--------------------------------------------------
+
+df['Age'] = df['Age'].fillna(0).astype('int')
+
+print(df.dtypes)
+
+--------------------------------------------------
+8. df.drop_duplicates()
+Remove Duplicate Rows
+--------------------------------------------------
+
+df.drop_duplicates()
+
+Remove Duplicates Based on One Column:
+
+df.drop_duplicates(subset=['Name'])
+
+--------------------------------------------------
+9. df.reset_index()
+Reset Index Numbers
+--------------------------------------------------
+
+new_df = df.dropna()
+
+print(new_df)
+
+Reset the Index:
+
+new_df.reset_index()
+
+Remove Old Index Column:
+
+new_df.reset_index(drop=True)
+
+--------------------------------------------------
+REAL-WORLD CLEANING EXAMPLE
+--------------------------------------------------
+
+df = pd.read_csv("employees.csv")
+
+# Remove duplicates
+df = df.drop_duplicates()
+
+# Fill missing salaries
+df['Salary'] = df['Salary'].fillna(0)
+
+# Rename columns
+df = df.rename(columns={'EmpName': 'Employee_Name'})
+
+# Reset index
+df = df.reset_index(drop=True)
+
+print(df.head())
+
+--------------------------------------------------
+QUICK REVISION TABLE
+--------------------------------------------------
+
+df.isnull()              -> Find missing values
+df.notnull()             -> Find non-missing values
+df.dropna()              -> Remove null values
+df.fillna()              -> Fill missing values
+df.replace()             -> Replace existing values
+df.rename()              -> Rename columns
+df.astype()              -> Change data type
+df.drop_duplicates()     -> Remove duplicate rows
+df.reset_index()         -> Reset index
+
+--------------------------------------------------
+IMPORTANT NOTE
+--------------------------------------------------
+
+Cleaning data is one of the most important tasks in data analysis.
+
+Proper cleaning helps:
+- Improve data accuracy
+- Reduce errors
+- Make analysis reliable
+- Prepare datasets for reporting and visualization

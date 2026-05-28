@@ -1,0 +1,9 @@
+EmpName,Age,Salary,Department
+Amit,25.0,50000.0,IT
+Rahul,30.0,60000.0,HR
+Sneha,28.0,,Finance
+Priya,,75000.0,IT
+Amit,25.0,50000.0,IT
+,32.0,65000.0,Sales
+Karan,29.0,,HR
+Rahul,30.0,60000.0,HR
