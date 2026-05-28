@@ -1,0 +1,239 @@
+📘 Pandas Deep Dive Series - Part 5
+
+Sort & Filter Data in Pandas
+
+Sorting and filtering are two of the most frequently used operations in data analysis. They help you organize datasets, find important records, remove unnecessary data, and quickly analyze information.
+
+In this lesson, we will only focus on sorting and filtering data in Pandas.
+
+--------------------------------------------------
+1. Sort Data in Ascending Order
+--------------------------------------------------
+
+import pandas as pd
+
+data = {
+    "Name": ["Amit", "Riya", "Karan", "Neha"],
+    "Marks": [78, 92, 65, 88]
+}
+
+df = pd.DataFrame(data)
+
+sorted_df = df.sort_values('Marks')
+
+print(sorted_df)
+
+Output:
+
+    Name  Marks
+2  Karan     65
+0   Amit     78
+3   Neha     88
+1   Riya     92
+
+Explanation:
+- sort_values() sorts rows.
+- 'Marks' is the column used for sorting.
+- Default sorting is ascending (small → large).
+
+--------------------------------------------------
+2. Sort Data in Descending Order
+--------------------------------------------------
+
+sorted_df = df.sort_values('Marks', ascending=False)
+
+print(sorted_df)
+
+Output:
+
+    Name  Marks
+1   Riya     92
+3   Neha     88
+0   Amit     78
+2  Karan     65
+
+Explanation:
+- ascending=False changes sorting direction.
+- Useful for rankings, top scores, highest sales, etc.
+
+--------------------------------------------------
+3. Sort by Multiple Columns
+--------------------------------------------------
+
+data = {
+    "Name": ["Amit", "Riya", "Karan", "Neha"],
+    "Department": ["IT", "HR", "IT", "HR"],
+    "Salary": [50000, 70000, 60000, 65000]
+}
+
+df = pd.DataFrame(data)
+
+sorted_df = df.sort_values(
+    ['Department', 'Salary'],
+    ascending=[True, False]
+)
+
+print(sorted_df)
+
+Output:
+
+    Name Department  Salary
+1   Riya         HR   70000
+3   Neha         HR   65000
+2  Karan         IT   60000
+0   Amit         IT   50000
+
+Explanation:
+- First sorting happens by Department.
+- Inside each department, salary is sorted descending.
+- ascending=[True, False]
+  - Department → Ascending
+  - Salary → Descending
+
+--------------------------------------------------
+4. Filter Rows Using Conditions
+--------------------------------------------------
+
+data = {
+    "Name": ["Amit", "Riya", "Karan", "Neha"],
+    "Marks": [78, 92, 65, 88]
+}
+
+df = pd.DataFrame(data)
+
+filtered_df = df[df['Marks'] > 80]
+
+print(filtered_df)
+
+Output:
+
+   Name  Marks
+1  Riya     92
+3  Neha     88
+
+Explanation:
+- df['Marks'] > 80 creates a condition.
+- Only rows satisfying the condition are returned.
+
+--------------------------------------------------
+5. Filter Using query()
+--------------------------------------------------
+
+filtered_df = df.query('Marks > 80')
+
+print(filtered_df)
+
+Output:
+
+   Name  Marks
+1  Riya     92
+3  Neha     88
+
+Explanation:
+- query() uses a string expression.
+- Easier to read for complex conditions.
+- Similar to database filtering.
+
+--------------------------------------------------
+6. Select Random Rows with sample()
+--------------------------------------------------
+
+sample_df = df.sample(2)
+
+print(sample_df)
+
+Example Output:
+
+    Name  Marks
+0   Amit     78
+3   Neha     88
+
+Explanation:
+- sample(2) selects 2 random rows.
+- Output changes each time you run the code.
+
+--------------------------------------------------
+7. Get Largest Values with nlargest()
+--------------------------------------------------
+
+top_df = df.nlargest(2, 'Marks')
+
+print(top_df)
+
+Output:
+
+   Name  Marks
+1  Riya     92
+3  Neha     88
+
+Explanation:
+- 2 → number of rows required.
+- 'Marks' → column used for ranking.
+- Faster and cleaner than sorting entire data.
+
+--------------------------------------------------
+8. Get Smallest Values with nsmallest()
+--------------------------------------------------
+
+bottom_df = df.nsmallest(2, 'Marks')
+
+print(bottom_df)
+
+Output:
+
+    Name  Marks
+2  Karan     65
+0   Amit     78
+
+Explanation:
+- Returns rows with smallest values.
+- Useful for lowest sales, minimum scores, etc.
+
+--------------------------------------------------
+9. Filter Columns Using filter()
+--------------------------------------------------
+
+data = {
+    "emp_name": ["Amit", "Riya"],
+    "emp_salary": [50000, 70000],
+    "dept": ["IT", "HR"]
+}
+
+df = pd.DataFrame(data)
+
+filtered_columns = df.filter(like='emp')
+
+print(filtered_columns)
+
+Output:
+
+  emp_name  emp_salary
+0     Amit       50000
+1     Riya       70000
+
+Explanation:
+- like='emp' selects columns containing "emp".
+- Helps when datasets contain many columns.
+
+--------------------------------------------------
+Key Points to Remember
+--------------------------------------------------
+
+sort_values()  -> Sort rows
+ascending=False -> Descending sorting
+query() -> SQL-like filtering
+sample() -> Random rows
+nlargest() -> Top values
+nsmallest() -> Lowest values
+filter() -> Filter column names
+
+--------------------------------------------------
+Real-World Uses
+--------------------------------------------------
+
+- Ranking top-performing employees
+- Finding highest sales products
+- Filtering customers by age or country
+- Random sampling for testing
+- Sorting financial reports
+- Cleaning large datasets
