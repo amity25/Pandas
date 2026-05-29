@@ -1,0 +1,248 @@
+📘 Pandas Deep Dive Series - Part 7
+
+Merge and Join Data in Pandas
+
+Working with multiple datasets is one of the most important tasks in data analysis. Pandas provides powerful functions to combine DataFrames using concatenation, merge operations, and joins.
+
+==================================================
+
+1. Concatenate DataFrames Vertically
+
+Use pd.concat() to stack DataFrames row by row.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'Name': ['Amit', 'Rahul'],
+    'Marks': [85, 90]
+})
+
+df2 = pd.DataFrame({
+    'Name': ['Neha', 'Priya'],
+    'Marks': [88, 92]
+})
+
+result = pd.concat([df1, df2])
+
+print(result)
+Output
+    Name  Marks
+0   Amit     85
+1  Rahul     90
+0   Neha     88
+1  Priya     92
+
+==================================================
+
+2. Concatenate DataFrames Horizontally
+
+Use axis=1 to combine DataFrames column by column.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'Name': ['Amit', 'Rahul']
+})
+
+df2 = pd.DataFrame({
+    'Marks': [85, 90]
+})
+
+result = pd.concat([df1, df2], axis=1)
+
+print(result)
+Output
+    Name  Marks
+0   Amit     85
+1  Rahul     90
+
+==================================================
+
+3. Merge Two DataFrames on a Key
+
+Use merge() to combine DataFrames using a common column.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['Amit', 'Rahul', 'Neha']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Marks': [85, 90, 88]
+})
+
+result = df1.merge(df2, on='ID')
+
+print(result)
+Output
+   ID   Name  Marks
+0   1   Amit     85
+1   2  Rahul     90
+2   3   Neha     88
+
+==================================================
+
+4. Join DataFrames
+
+Use join() for SQL-style joining based on index values.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'Name': ['Amit', 'Rahul']
+}, index=[1, 2])
+
+df2 = pd.DataFrame({
+    'Marks': [85, 90]
+}, index=[1, 2])
+
+result = df1.join(df2)
+
+print(result)
+Output
+    Name  Marks
+1   Amit     85
+2  Rahul     90
+
+==================================================
+
+5. Append Rows to Another DataFrame
+
+append() is removed in newer Pandas versions.
+
+Use pd.concat() instead.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'Name': ['Amit'],
+    'Marks': [85]
+})
+
+df2 = pd.DataFrame({
+    'Name': ['Rahul'],
+    'Marks': [90]
+})
+
+result = pd.concat([df1, df2])
+
+print(result)
+Output
+    Name  Marks
+0   Amit     85
+0  Rahul     90
+
+==================================================
+
+6. Outer Join
+
+An outer join keeps all records from both DataFrames.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['Amit', 'Rahul', 'Neha']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 4],
+    'Marks': [85, 90, 88]
+})
+
+result = pd.merge(df1, df2, how='outer', on='ID')
+
+print(result)
+Output
+   ID   Name  Marks
+0   1   Amit   85.0
+1   2  Rahul   90.0
+2   3   Neha    NaN
+3   4    NaN   88.0
+
+==================================================
+
+7. Inner Join
+
+An inner join keeps only matching records.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['Amit', 'Rahul', 'Neha']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 4],
+    'Marks': [85, 90, 88]
+})
+
+result = pd.merge(df1, df2, how='inner', on='ID')
+
+print(result)
+Output
+   ID   Name  Marks
+0   1   Amit     85
+1   2  Rahul     90
+
+==================================================
+
+8. Left Join
+
+A left join keeps all records from the left DataFrame.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['Amit', 'Rahul', 'Neha']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 4],
+    'Marks': [85, 90, 88]
+})
+
+result = pd.merge(df1, df2, how='left', on='ID')
+
+print(result)
+Output
+   ID   Name  Marks
+0   1   Amit   85.0
+1   2  Rahul   90.0
+2   3   Neha    NaN
+
+==================================================
+
+9. Right Join
+
+A right join keeps all records from the right DataFrame.
+
+import pandas as pd
+
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['Amit', 'Rahul', 'Neha']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 4],
+    'Marks': [85, 90, 88]
+})
+
+result = pd.merge(df1, df2, how='right', on='ID')
+
+print(result)
+Output
+   ID   Name  Marks
+0   1   Amit   85.0
+1   2  Rahul   90.0
+2   4    NaN   88.0
+
+==================================================
+
+Mastering merge and join operations in Pandas is essential for combining datasets efficiently. These functions are widely used in data cleaning, reporting, analytics, and real-world data projects.
