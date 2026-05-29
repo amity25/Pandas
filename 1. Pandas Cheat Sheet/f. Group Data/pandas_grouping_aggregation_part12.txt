@@ -1,0 +1,187 @@
+# 📘 Pandas Deep Dive Series - Part 6
+
+# Grouping, Aggregation, Apply & Transform in Pandas
+
+## Import Pandas
+
+```python
+import pandas as pd
+```
+
+---
+
+# Create Sample DataFrame
+
+```python
+data = {
+    'Department': ['HR', 'IT', 'HR', 'Finance', 'IT', 'Finance', 'HR'],
+    'Employee': ['Amit', 'Rahul', 'Priya', 'Neha', 'Karan', 'Simran', 'Rohit'],
+    'Salary': [40000, 70000, 45000, 60000, 80000, 65000, 50000],
+    'Bonus': [5000, 7000, 4000, 6000, 8000, 6500, 4500],
+    'Experience': [2, 5, 3, 4, 6, 5, 2]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+```
+
+---
+
+# 1. Group By a Column
+
+```python
+grouped = df.groupby('Department')
+
+print(grouped)
+```
+
+---
+
+# View Groups Properly
+
+## View All Groups
+
+```python
+grouped = df.groupby('Department')
+
+for department, data in grouped:
+    print("\nDepartment:", department)
+    print(data)
+```
+
+---
+
+## View a Specific Group
+
+```python
+grouped = df.groupby('Department')
+
+print(grouped.get_group('HR'))
+```
+
+---
+
+## Count Rows in Each Group
+
+```python
+grouped = df.groupby('Department')
+
+print(grouped.size())
+```
+
+---
+
+# 2. Mean of Groups
+
+```python
+mean_values = df.groupby('Department').mean(numeric_only=True)
+
+print(mean_values)
+```
+
+---
+
+# 3. Sum of Groups
+
+```python
+sum_values = df.groupby('Department').sum(numeric_only=True)
+
+print(sum_values)
+```
+
+---
+
+# 4. Count Non-Null Values in Groups
+
+```python
+count_values = df.groupby('Department').count()
+
+print(count_values)
+```
+
+---
+
+# 5. Maximum Salary in Each Department
+
+```python
+max_salary = df.groupby('Department')['Salary'].max()
+
+print(max_salary)
+```
+
+---
+
+# 6. Create Pivot Table
+
+```python
+pivot_table = df.pivot_table(
+    values='Salary',
+    index='Department',
+    aggfunc='mean'
+)
+
+print(pivot_table)
+```
+
+---
+
+# 7. Aggregate Multiple Columns
+
+```python
+aggregated_values = df.agg({
+    'Salary': 'mean',
+    'Bonus': 'sum'
+})
+
+print(aggregated_values)
+```
+
+---
+
+# 8. Apply Function to Columns
+
+```python
+column_means = df[['Salary', 'Bonus', 'Experience']].apply('mean')
+
+print(column_means)
+```
+
+---
+
+# 9. Transform Data Column-Wise
+
+```python
+transformed_data = df[['Salary', 'Bonus']].transform(
+    lambda x: x + 10
+)
+
+print(transformed_data)
+```
+
+---
+
+# 10. Multiple Aggregations Example
+
+```python
+multiple_agg = df.groupby('Department').agg({
+    'Salary': ['mean', 'max', 'min'],
+    'Bonus': ['sum', 'mean']
+})
+
+print(multiple_agg)
+```
+
+---
+
+# Skills Covered
+
+✅ groupby()
+✅ mean()
+✅ sum()
+✅ count()
+✅ max()
+✅ pivot_table()
+✅ agg()
+✅ apply()
+✅ transform()
