@@ -1,0 +1,306 @@
+===============================================================================
+LEVEL 5 – WORKING WITH EXCEL FILES
+===============================================================================
+
+Excel is one of the most commonly used file formats in business environments.
+Pandas allows us to read, analyze, modify, and create Excel files directly from Python.
+
+-------------------------------------------------------------------------------
+SECTION 1: INSTALL REQUIRED PACKAGES
+-------------------------------------------------------------------------------
+
+Install Pandas and OpenPyXL:
+
+    pip install pandas
+    pip install openpyxl
+
+Why OpenPyXL?
+Pandas uses OpenPyXL to read and write .xlsx Excel files.
+
+-------------------------------------------------------------------------------
+SECTION 2: IMPORT PANDAS
+-------------------------------------------------------------------------------
+
+Code:
+
+    import pandas as pd
+
+-------------------------------------------------------------------------------
+SECTION 3: READ AN EXCEL FILE
+-------------------------------------------------------------------------------
+
+Example file location:
+
+    C:\Users\amita\Desktop\sales.xlsx
+
+Code:
+
+    import pandas as pd
+
+    file_path = r"C:\Users\amita\Desktop\sales.xlsx"
+
+    df = pd.read_excel(file_path)
+
+    print(df)
+
+Explanation:
+- pd.read_excel() reads the Excel file.
+- Data is loaded into a DataFrame.
+
+-------------------------------------------------------------------------------
+SECTION 4: DISPLAY THE FIRST 5 ROWS
+-------------------------------------------------------------------------------
+
+Code:
+
+    print(df.head())
+
+Purpose:
+- Quickly inspect the data.
+- Verify that the file loaded correctly.
+
+-------------------------------------------------------------------------------
+SECTION 5: DISPLAY COLUMN NAMES
+-------------------------------------------------------------------------------
+
+Code:
+
+    print(df.columns)
+
+Example Output:
+
+    Index(['OrderID', 'Customer', 'Sales'], dtype='object')
+
+Purpose:
+Always check column names before filtering or analyzing data.
+
+-------------------------------------------------------------------------------
+SECTION 6: READ A SPECIFIC SHEET
+-------------------------------------------------------------------------------
+
+Example Workbook:
+
+    January
+    February
+    March
+
+Code:
+
+    df = pd.read_excel(
+        file_path,
+        sheet_name="January"
+    )
+
+    print(df.head())
+
+Result:
+Only the January sheet is loaded.
+
+-------------------------------------------------------------------------------
+SECTION 7: VIEW ALL SHEET NAMES
+-------------------------------------------------------------------------------
+
+Code:
+
+    excel_file = pd.ExcelFile(file_path)
+
+    print(excel_file.sheet_names)
+
+Example Output:
+
+    ['January', 'February', 'March']
+
+-------------------------------------------------------------------------------
+SECTION 8: READ ALL SHEETS
+-------------------------------------------------------------------------------
+
+Code:
+
+    all_sheets = pd.read_excel(
+        file_path,
+        sheet_name=None
+    )
+
+    print(all_sheets.keys())
+
+Explanation:
+
+    sheet_name=None
+
+This instructs Pandas to read every sheet in the workbook.
+
+-------------------------------------------------------------------------------
+SECTION 9: DISPLAY DATA FROM EVERY SHEET
+-------------------------------------------------------------------------------
+
+Code:
+
+    for sheet_name, df in all_sheets.items():
+
+        print("\n" + "=" * 50)
+
+        print(f"Sheet: {sheet_name}")
+
+        print("=" * 50)
+
+        print(df.head())
+
+Purpose:
+Loop through each sheet and display its first five rows.
+
+-------------------------------------------------------------------------------
+SECTION 10: COMBINE ALL SHEETS INTO ONE DATAFRAME
+-------------------------------------------------------------------------------
+
+Code:
+
+    combined_df = pd.concat(
+        all_sheets.values(),
+        ignore_index=True
+    )
+
+    print(combined_df.head())
+
+Purpose:
+Combine data from multiple sheets into one DataFrame.
+
+Common Use Cases:
+- Monthly Sales Reports
+- Bank Statements
+- Purchase Orders
+- Inventory Reports
+
+-------------------------------------------------------------------------------
+SECTION 11: EXPORT DATA TO EXCEL
+-------------------------------------------------------------------------------
+
+Code:
+
+    df.to_excel(
+        r"C:\Users\amita\Desktop\output.xlsx",
+        index=False
+    )
+
+Explanation:
+
+    index=False
+
+Prevents Pandas from writing the DataFrame index as an extra column.
+
+-------------------------------------------------------------------------------
+SECTION 12: FILTER DATA
+-------------------------------------------------------------------------------
+
+Example:
+
+Keep only rows where Sales > 500
+
+Code:
+
+    high_sales = df[df["Sales"] > 500]
+
+    print(high_sales)
+
+-------------------------------------------------------------------------------
+SECTION 13: EXPORT FILTERED DATA
+-------------------------------------------------------------------------------
+
+Code:
+
+    high_sales.to_excel(
+        r"C:\Users\amita\Desktop\high_sales.xlsx",
+        index=False
+    )
+
+Result:
+
+    high_sales.xlsx
+
+is created on the Desktop.
+
+-------------------------------------------------------------------------------
+SECTION 14: CREATE A MULTI-SHEET EXCEL REPORT
+-------------------------------------------------------------------------------
+
+Code:
+
+    with pd.ExcelWriter(
+        r"C:\Users\amita\Desktop\sales_report.xlsx"
+    ) as writer:
+
+        df.to_excel(
+            writer,
+            sheet_name="All Sales",
+            index=False
+        )
+
+        high_sales.to_excel(
+            writer,
+            sheet_name="High Sales",
+            index=False
+        )
+
+Result:
+
+    sales_report.xlsx
+
+Contains:
+
+    Sheet 1 → All Sales
+    Sheet 2 → High Sales
+
+-------------------------------------------------------------------------------
+COMMON ERRORS AND SOLUTIONS
+-------------------------------------------------------------------------------
+
+1. FileNotFoundError
+
+Reason:
+Incorrect file path.
+
+Solution:
+Verify the file name and location.
+
+...............................................................................
+
+2. KeyError: 'Sales'
+
+Reason:
+The column name does not exist.
+
+Solution:
+
+    print(df.columns)
+
+Use the exact column name displayed.
+
+...............................................................................
+
+3. ModuleNotFoundError: No module named 'openpyxl'
+
+Reason:
+OpenPyXL is not installed.
+
+Solution:
+
+    pip install openpyxl
+
+-------------------------------------------------------------------------------
+SUMMARY
+-------------------------------------------------------------------------------
+
+By the end of this level, you should be able to:
+
+✓ Read Excel files
+✓ Read specific sheets
+✓ Read all sheets
+✓ View sheet names
+✓ Combine multiple sheets
+✓ Filter records
+✓ Export Excel files
+✓ Create multi-sheet reports
+✓ Troubleshoot common errors
+
+===============================================================================
+END OF LEVEL 5 – WORKING WITH EXCEL FILES
+===============================================================================
