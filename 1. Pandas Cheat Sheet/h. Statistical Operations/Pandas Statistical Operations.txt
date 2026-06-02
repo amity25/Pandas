@@ -1,0 +1,339 @@
+PANDAS DEEP DIVE SERIES - STATISTICAL OPERATIONS
+INTRODUCTION
+
+Statistical operations are among the most commonly used features in Pandas. They help you understand the distribution, spread, relationships, and summary statistics of your data.
+
+In this lesson, we'll create a sample dataset and then explore each statistical function individually.
+
+Code:
+
+import pandas as pd
+
+Create sample employee dataset
+
+data = {
+"Employee": ["John", "Sarah", "Mike", "Emma", "David"],
+"Age": [25, 30, 35, 28, 40],
+"Salary": [45000, 55000, 65000, 50000, 75000],
+"Experience": [2, 5, 8, 3, 12]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+Output:
+
+Employee Age Salary Experience
+0 John 25 45000 2
+1 Sarah 30 55000 5
+2 Mike 35 65000 8
+3 Emma 28 50000 3
+4 David 40 75000 12
+
+################################################
+
+1. df.mean() – COLUMN-WISE MEAN
+
+################################################
+
+Definition:
+The mean is the average value of each numeric column.
+
+Formula:
+
+Mean = Sum of Values / Number of Values
+
+Code:
+
+print(df.mean(numeric_only=True))
+
+Expected Output:
+
+Age 31.6
+Salary 58000.0
+Experience 6.0
+dtype: float64
+
+Explanation:
+
+Average Age = 31.6 years
+Average Salary = 58,000
+Average Experience = 6 years
+
+################################################
+
+2. df.median() – COLUMN-WISE MEDIAN
+
+################################################
+
+Definition:
+Median is the middle value after sorting the data.
+
+Code:
+
+print(df.median(numeric_only=True))
+
+Expected Output:
+
+Age 30.0
+Salary 55000.0
+Experience 5.0
+dtype: float64
+
+Explanation:
+
+Sorted Salaries:
+
+45000
+50000
+55000
+65000
+75000
+
+Middle value = 55000
+
+Therefore, median salary = 55000.
+
+################################################
+
+3. df.std() – STANDARD DEVIATION
+
+################################################
+
+Definition:
+Standard deviation measures how spread out the values are from the mean.
+
+Code:
+
+print(df.std(numeric_only=True))
+
+Example Output:
+
+Age 6.11
+Salary 12041.59
+Experience 4.12
+dtype: float64
+
+Interpretation:
+
+A higher standard deviation indicates greater variability.
+
+For Salary:
+
+Mean Salary = 58,000
+Standard Deviation ≈ 12,041
+
+This means salaries vary considerably around the average.
+
+################################################
+
+4. df.var() – VARIANCE
+
+################################################
+
+Definition:
+Variance is the square of the standard deviation.
+
+Code:
+
+print(df.var(numeric_only=True))
+
+Example Output:
+
+Age 37.30
+Salary 145000000
+Experience 17.00
+dtype: float64
+
+Interpretation:
+
+A larger variance indicates that values are spread further from the mean.
+
+################################################
+
+5. df.sum() – COLUMN-WISE SUM
+
+################################################
+
+Definition:
+Returns the total of each column.
+
+Code:
+
+print(df.sum(numeric_only=True))
+
+Expected Output:
+
+Age 158
+Salary 290000
+Experience 30
+dtype: int64
+
+Use Cases:
+
+Total sales
+Total revenue
+Total quantity sold
+
+################################################
+
+6. df.min() – MINIMUM VALUE
+
+################################################
+
+Definition:
+Returns the smallest value in each column.
+
+Code:
+
+print(df.min(numeric_only=True))
+
+Expected Output:
+
+Age 25
+Salary 45000
+Experience 2
+dtype: int64
+
+Interpretation:
+
+Youngest employee = 25
+Lowest salary = 45000
+Minimum experience = 2 years
+
+################################################
+
+7. df.max() – MAXIMUM VALUE
+
+################################################
+
+Definition:
+Returns the largest value in each column.
+
+Code:
+
+print(df.max(numeric_only=True))
+
+Expected Output:
+
+Age 40
+Salary 75000
+Experience 12
+dtype: int64
+
+Interpretation:
+
+Oldest employee = 40
+Highest salary = 75000
+Most experienced employee = 12 years
+
+################################################
+
+8. df.count() – COUNT NON-NULL VALUES
+
+################################################
+
+Definition:
+Counts non-empty values in each column.
+
+Code:
+
+import pandas as pd
+
+data = {
+"Age": [25, 30, None, 28, 40],
+"Salary": [45000, 55000, 65000, None, 75000],
+"Experience": [2, 5, 8, 3, None]
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+print()
+print(df.count())
+
+Expected Output:
+
+Age 4
+Salary 4
+Experience 4
+dtype: int64
+
+Explanation:
+
+Missing values (None or NaN) are not counted.
+
+################################################
+
+9. df.corr() – CORRELATION MATRIX
+
+################################################
+
+Definition:
+Correlation measures the relationship between numeric columns.
+
+Correlation Range:
+
++1 = Perfect Positive Correlation
+0 = No Correlation
+-1 = Perfect Negative Correlation
+
+Code:
+
+print(df.corr(numeric_only=True))
+
+Example Output:
+
+             Age    Salary  Experience
+
+Age 1.000000 0.980000 0.950000
+Salary 0.980000 1.000000 0.990000
+Experience 0.950000 0.990000 1.000000
+
+Interpretation:
+
+Age and Salary have a strong positive relationship.
+Salary and Experience have a very strong positive relationship.
+As experience increases, salary tends to increase.
+
+Definition:
+Generates a complete statistical summary of numeric columns.
+
+Code:
+
+print(df.describe())
+
+Expected Output:
+
+         Age        Salary   Experience
+
+count 5.000000 5.000000 5.000000
+mean 31.600000 58000.000000 6.000000
+std 6.107373 12041.594579 4.123106
+min 25.000000 45000.000000 2.000000
+25% 28.000000 50000.000000 3.000000
+50% 30.000000 55000.000000 5.000000
+75% 35.000000 65000.000000 8.000000
+max 40.000000 75000.000000 12.000000
+
+df.mean() -> Average values
+df.median() -> Middle value
+df.std() -> Standard deviation
+df.var() -> Variance
+df.sum() -> Total values
+df.min() -> Smallest value
+df.max() -> Largest value
+df.count() -> Count non-null values
+df.corr() -> Relationship between columns
+df.describe() -> Complete statistical summary
+
+A typical Pandas analyst often starts with:
+
+df.head()
+df.info()
+df.describe()
+df.isnull().sum()
+df.corr()
+
+These five commands provide a quick understanding of the structure, quality, statistics, and relationships within a dataset before deeper analysis begins.
