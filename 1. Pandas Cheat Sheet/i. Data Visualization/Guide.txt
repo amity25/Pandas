@@ -1,0 +1,332 @@
+📘 Pandas Deep Dive Series – Part 9
+
+Data Visualization in Pandas
+
+Welcome to the final part of the Pandas Deep Dive Series.
+
+So far, you've learned how to:
+
+Load data
+Clean datasets
+Filter records
+Aggregate information
+Merge tables
+Handle dates
+Work with missing values
+Perform advanced analysis
+
+Now it's time to present your insights visually.
+
+Data visualization helps transform rows and columns into charts that are easier to understand and communicate.
+
+Pandas comes with built-in plotting functionality powered by Matplotlib, allowing you to create charts with just a few lines of code.
+
+
+
+Step 1: Import Libraries
+
+Copy and run:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Display charts inside Jupyter Notebook
+%matplotlib inline
+
+
+
+Step 2: Create Sample Dataset
+
+We'll use the same dataset throughout this lesson.
+
+import pandas as pd
+
+sales_data = {
+    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    "Sales": [12000, 15000, 18000, 17000, 22000, 25000],
+    "Expenses": [7000, 8000, 9000, 8500, 11000, 12000],
+    "Customers": [120, 135, 150, 145, 170, 190]
+}
+
+df = pd.DataFrame(sales_data)
+
+df
+
+Output:
+
+Month	Sales	Expenses	Customers
+Jan	12000	7000	120
+Feb	15000	8000	135
+Mar	18000	9000	150
+Apr	17000	8500	145
+May	22000	11000	170
+Jun	25000	12000	190
+
+
+
+1. Line Plot
+
+Used to visualize trends over time.
+
+df.plot(
+    x="Month",
+    y="Sales",
+    kind="line",
+    title="Monthly Sales Trend",
+    figsize=(8,5)
+)
+
+plt.show()
+Use Cases
+Sales growth
+Stock prices
+Website traffic
+Revenue trends
+
+
+
+2. Vertical Bar Plot
+
+Compares values across categories.
+
+df.plot(
+    x="Month",
+    y="Sales",
+    kind="bar",
+    title="Monthly Sales",
+    figsize=(8,5)
+)
+
+plt.show()
+Use Cases
+Sales by month
+Employees by department
+Products by revenue
+
+
+
+3. Horizontal Bar Plot
+
+Useful when category names are long.
+
+df.plot(
+    x="Month",
+    y="Sales",
+    kind="barh",
+    title="Monthly Sales",
+    figsize=(8,5)
+)
+
+plt.show()
+Use Cases
+Ranking charts
+Survey results
+Performance comparisons
+
+
+
+4. Histogram
+
+Shows data distribution.
+
+df["Sales"].plot(
+    kind="hist",
+    bins=5,
+    title="Sales Distribution",
+    figsize=(8,5)
+)
+
+plt.show()
+What It Shows
+Frequency of values
+Data spread
+Skewness
+Use Cases
+Salary analysis
+Exam scores
+Product prices
+
+
+
+5. Box Plot
+
+Displays statistical summary.
+
+df[["Sales", "Expenses"]].plot(
+    kind="box",
+    figsize=(8,5),
+    title="Box Plot"
+)
+
+plt.show()
+Shows
+Median
+Quartiles
+Outliers
+Data spread
+Use Cases
+Detect unusual values
+Compare distributions
+Data quality checks
+
+
+
+6. KDE Plot (Kernel Density Estimation)
+
+A smooth version of a histogram.
+
+df["Sales"].plot(
+    kind="kde",
+    figsize=(8,5),
+    title="Sales Density Curve"
+)
+
+plt.show()
+What It Shows
+
+The probability distribution of data.
+
+Use Cases
+Statistical analysis
+Distribution comparison
+Trend identification
+
+
+
+7. Pie Chart
+
+Shows percentage contribution.
+
+df.set_index("Month")["Sales"].plot(
+    kind="pie",
+    autopct="%1.1f%%",
+    figsize=(7,7),
+    title="Sales Share by Month"
+)
+
+plt.ylabel("")
+plt.show()
+Use Cases
+Market share
+Budget allocation
+Revenue contribution
+
+
+
+8. Scatter Plot
+
+Shows relationship between two variables.
+
+df.plot.scatter(
+    x="Customers",
+    y="Sales",
+    figsize=(8,5),
+    title="Customers vs Sales"
+)
+
+plt.show()
+What It Shows
+
+Whether two variables move together.
+
+Use Cases
+Sales vs Customers
+Height vs Weight
+Ad Spend vs Revenue
+
+
+
+9. Area Plot
+
+Shows cumulative trends.
+
+df.plot(
+    x="Month",
+    y=["Sales", "Expenses"],
+    kind="area",
+    figsize=(8,5),
+    title="Sales and Expenses Area Chart"
+)
+
+plt.show()
+Use Cases
+Revenue growth
+Resource utilization
+Market trends
+Multiple Lines in One Chart
+
+Compare multiple columns together.
+
+df.plot(
+    x="Month",
+    y=["Sales", "Expenses"],
+    kind="line",
+    figsize=(8,5),
+    title="Sales vs Expenses"
+)
+
+plt.show()
+Customizing Charts
+
+Add labels and titles.
+
+df.plot(
+    x="Month",
+    y="Sales",
+    kind="line",
+    figsize=(8,5)
+)
+
+plt.title("Monthly Sales")
+plt.xlabel("Month")
+plt.ylabel("Sales Amount")
+plt.grid(True)
+
+plt.show()
+Save Chart as Image
+df.plot(
+    x="Month",
+    y="Sales",
+    kind="line"
+)
+
+plt.savefig("sales_chart.png")
+plt.show()
+
+The image will be saved in the same folder as your notebook.
+
+
+
+Visualization Cheat Sheet
+
+
+Chart Type	Code
+Line Plot	df.plot(kind='line')
+Bar Plot	df.plot(kind='bar')
+Horizontal Bar	df.plot(kind='barh')
+Histogram	df.plot(kind='hist')
+Box Plot	df.plot(kind='box')
+KDE Plot	df.plot(kind='kde')
+Pie Chart	df.plot(kind='pie')
+Scatter Plot	df.plot.scatter()
+Area Plot	df.plot(kind='area')
+Final Thoughts
+
+Congratulations on completing the Pandas Deep Dive Series.
+
+You have covered the complete learning path from:
+
+✅ Installation and Setup
+✅ Series and DataFrames
+✅ Data Selection and Filtering
+✅ Data Cleaning
+✅ Missing Values
+✅ Sorting and Ranking
+✅ GroupBy Operations
+✅ Merge, Join, and Concatenate
+✅ Date & Time Handling
+✅ String Operations
+✅ Apply Functions
+✅ Pivot Tables
+✅ File Handling (CSV, Excel, JSON)
+✅ Data Visualization
